@@ -1,0 +1,28 @@
+.middle{
+    position:absolute;
+    top:0;
+    bottom:0;
+    right: 0;
+    left: 0;
+    margin: auto; 
+}
+
+.button-bar {
+    text-align: center;
+}
+
+.button-bar > div {
+    display: inline-block;
+}
+
+.picWrapper{
+  flex-basis: 100px;
+  margin-left: 0.25%;
+  margin-right: 0.25%;
+  margin-top: 0.05%;
+  margin-bottom: 0.05%;
+}
+
+.picThumbnail{
+  width: 95%;
+}

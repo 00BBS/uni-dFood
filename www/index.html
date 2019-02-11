@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsenui.css">
+    <link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsen-css-components.min.css">
+    <!--AJAX-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <!-- Cordova and Others -->
+    <script type="text/javascript" src="cordova.js"></script>
+    <script src="https://unpkg.com/onsenui/js/onsenui.min.js"></script>
+    <script>
+        function clearBox(elementID){
+            document.getElementById(elementID).innerHTML = "";
+        }
+    </script>
+</head>
+<!-- DISABLE when no need to use
+<body 
+    onload = "
+        loadSearch('breakfast', 'breakfast');
+        loadSearch('lunch', 'lunch');
+        loadSearch('dinner', 'dinner');
+    ">
+-->
+
+<body>
+<!-- Shown on every page -->
+<ons-page>
+    <ons-tabbar id="tabbar">
+        <ons-tab icon="ion-home" page="main.html" active>
+        </ons-tab>
+        <ons-tab icon="ion-ios-search" page="search.html">
+        </ons-tab>
+        <ons-tab icon="ion-ios-camera-outline" page="camera.html">
+        </ons-tab>
+        <ons-tab icon="ion-ios-heart-outline" page="./html/likedfoods.html">
+        </ons-tab>
+        <ons-tab icon="ion-ios-person-outline" page="profile.html">
+        </ons-tab>
+    </ons-tabbar>
+
+</ons-page> 
+
+<ons-template id="main.html">
+      <ons-page>
+        <ons-toolbar fixed-style>
+            <div class="left">
+                <ons-toolbar-button><i class="icon ion-android-restaurant"></i></ons-toolbar-button>
+            </div>
+            <div class="center" style="width:100%;"> Uni'd Food </div>
+        </ons-toolbar>
+        <ons-card>
+            <h1 style="text-align:center;">Breakfast</h1>
+            <p style="text-align:center;"> A healthy start to your day </p>
+            <ons-card><div id="breakfast"></div></ons-card>
+        </ons-card>
+        <ons-card>
+            <h1 style="text-align:center;">Lunch</h1>
+            <p style="text-align:center;"> A great time for you to recharge </p>
+            <ons-card><div id="lunch"></div></ons-card>
+        </ons-card>
+        <ons-card>
+            <h1 style="text-align:center;">Dinner</h1>
+            <p style="text-align:center;"> A time for you to sit back and relax </p>
+            <ons-card><div id="dinner"></div></ons-card>
+        </ons-card>
+      </ons-page>
+</ons-template>
+
+
+<ons-template id="search.html">
+    <ons-page>
+        <ons-toolbar>
+          <div class = "center"><ons-search-input class="search_box"  id="searchBar" style="width:100%; padding-top: 5px;" placeholder="I'm hungry for..." onchange = "loadSearch(this.value, 'results')"></ons-search-input></div>
+        </ons-toolbar>
+        <ons-card><div id="results"></div></ons-card>
+    </ons-page>
+</ons-template>
+
+<ons-template id="camera.html">
+    <ons-page>
+        <ons-toolbar>
+            <div class="left">
+                <ons-toolbar-button><i class="icon ion-camera"></i></ons-toolbar-button>
+            </div>
+            <div class="center">Share it!</div>
+            <div class="right"></div>
+        </ons-toolbar>
+        <ons-card>
+        </ons-card>
+
+
+        <ons-button modifier="large" id = "cameraButton" style="padding: 8px">Take Photo</ons-button>
+    </ons-page>
+</ons-template>
+
+
+<ons-template id="profile.html">
+    <ons-page id = "profile">
+    <ons-toolbar fixed-style>
+        <div class="left">
+            <ons-toolbar-button><i class="icon ion-person-add"></i></ons-toolbar-button>
+        </div>
+        <div class="center" style="width:100%">Profile</div>
+        <div class="right">
+            <ons-toolbar-button><i class="icon ion-android-settings"></i></ons-toolbar-button>
+        </div>
+    </ons-toolbar>
+    <ons-card>
+        <h1 style="text-align: center;">Your Posts</h1>
+        <ons-row id="photoContent"></ons-row>
+    </ons-card>
+    <ons-list id="preferences">
+        <ons-list-header>
+            Food Preferences
+            <ons-button modifier = "quiet" onclick = "listAdd('Food Preference', 'preferences')">
+                <i class="icon ion-plus-round"></i>
+            </ons-button>
+        </ons-list-header>
+    </ons-list>
+    <br>
+    <ons-list id="allergies">
+        <ons-list-header id="allergies">
+            Allergies
+                <ons-button modifier = "quiet" onclick = "listAdd('Allergy', 'allergies')">
+                    <i class="icon ion-plus-round"></i>
+                </ons-button>
+        </ons-list-header>
+    </ons-list>
+</ons-page>
+
+
+</ons-template>
+</body>
+<script src = "js/loadSearch.js"></script>
+<script src = "js/searchFood2Fork.js"></script>
+<script src = "js/camera.js"></script>
+<script src = "js/listAdd.js"></script>
+
+
+</html>
+
+
+<!-- 
+    Testing API Connection using free Ghibli API
+    <script src = "js/app.js"></script>
+-->
+<!--
+    RecipePuppy Connection
+    <script src= "js/searchFoods.js"></script>
+-->
