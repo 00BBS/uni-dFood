@@ -1,5 +1,7 @@
 function searchFoodAPI(URL, searchTerm, searchLocation){
 	clearBox("results")
+
+
 	console.log(URL);
 	fetch(URL)
     .then(function (response) {
@@ -11,17 +13,24 @@ function searchFoodAPI(URL, searchTerm, searchLocation){
         }
     })
     .then((data) => {
-    	updateResults(data, searchTerm, searchLocation);
+    	// temporary searchTerm, need to update - incase user searches "recipe"
+    	if(searchTerm === "recipe"){
+    		updateFoodPage(data, searchLocation);
+    	}
+    	else{
+    		updateResults(data, searchTerm, searchLocation);
+    	}
     })
 }
 
-// update DOM
+
+// update DOM with search results
 function updateResults(data, searchTerm, searchLocation){
 	const results = data.recipes;
 
 
 	if(results.length === 0){
-		console.log("nothing");
+		//console.log("nothing");
 		const error = document.createElement('p');
 		error.textContent = "Sorry, no results were found for " + searchTerm;
 		error.setAttribute('textAlign', 'center');
@@ -33,8 +42,7 @@ function updateResults(data, searchTerm, searchLocation){
 	}
 	else{
 		results.forEach(food => {
-			console.log(food.title);
-
+			//console.log(food.title);
 	      	const h1 = document.createElement('h1');
 	      	food.title = food.title.substring(0, 100);
 	      	h1.textContent = food.title;
@@ -42,15 +50,18 @@ function updateResults(data, searchTerm, searchLocation){
 
 	      	const img = document.createElement("IMG");
 	      	img.setAttribute('src', food.image_url);
-	      	img.setAttribute('class', 'middle');
-
+	      	img.setAttribute('width', 300);
+	      	img.setAttribute('height', 300);
+	      	// use template literal to pass variable
+	      	img.setAttribute('onclick', `searchRecipe("${food.recipe_id}"," ${searchLocation}");`);
 	      	document.getElementById(searchLocation).appendChild(h1).appendChild(img);
 		});
 	}
 }
 
-// generate a random meal plan
 
+
+// generate a random meal plan
 function generateMeal(data, searchLocation){
 	var max = data.count;
 	var min = 0;
@@ -69,3 +80,18 @@ function generateMeal(data, searchLocation){
 
   	document.getElementById(searchLocation).appendChild(mealHeader).appendChild(mealImg);
 }
+
+
+
+// function which updates the search page with the selected meals information
+function updateFoodPage(data, searchLocation){
+	const recipe = data.recipe.ingredients;
+	recipe.forEach(ingredient =>{
+		const p = document.createElement('h1');
+		p.textContent = ingredient;
+		document.getElementById("results").appendChild(p);
+	})
+}
+
+
+

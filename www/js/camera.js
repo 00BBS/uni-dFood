@@ -18,8 +18,6 @@ let cam = {
 
 	},
 	work: function(imageURI){
-
-
 		const div = document.createElement('div');
 		div.innerHTML = `<ons-col class = "picWrapper"> <img src =` + imageURI+` class="picThumbnail"></ons-col>`;
 		document.getElementById("photoContent").appendChild(div);
