@@ -1,6 +1,5 @@
 function searchFoodAPI(URL, searchTerm, searchLocation){
-	clearBox("results")
-	console.log(URL);
+	clearBox(searchLocation);
 	fetch(URL)
     .then(function (response) {
         if (response.status === 200){
@@ -54,8 +53,8 @@ function formatData(food, searchLocation){
 
   	const img = document.createElement("IMG");
   	img.setAttribute('src', food.image_url);
-  	img.setAttribute('width', 300);
-  	img.setAttribute('height', 300);
+  	img.setAttribute('width', 200);
+  	img.setAttribute('height', 200);
   	// use template literal to pass variable
   	img.setAttribute('onclick', `searchRecipe("${food.recipe_id}","${searchLocation}");`);
   	document.getElementById(searchLocation).appendChild(h1).appendChild(img);
@@ -71,16 +70,7 @@ function generateMeal(data, searchLocation){
 	console.log("meal index: " + generatedMealIndex);
 	var meal = data.recipes[generatedMealIndex];
 	// update DOM
-  	const mealHeader = document.createElement('h1');
-  	mealHeader.textContent = meal.title;
-  	mealHeader.setAttribute('textAlign', 'center');
-
-  	const mealImg = document.createElement("IMG");
-  	mealImg.setAttribute('src', meal.image_url);
-  	mealImg.setAttribute('width', '80%');
-  	mealImg.setAttribute('class', 'middle');
-
-  	document.getElementById(searchLocation).appendChild(mealHeader).appendChild(mealImg);
+  	formatData(meal, searchLocation);
 }
 
 
@@ -89,14 +79,14 @@ function generateMeal(data, searchLocation){
 function updateFoodPage(data, searchLocation){
 	const recipe = data.recipe.ingredients;
 	const foodData = data.recipe;
-	formatData(foodData, searchLocation
+	formatData(foodData, searchLocation);
 	console.log(searchLocation);
 	//  add recipe
 	recipe.forEach(ingredient =>{
 		const p = document.createElement('p');
 		p.textContent = ingredient;
 		document.getElementById(searchLocation).appendChild(p);
-	})
+	});
 }
 
 
