@@ -1,7 +1,5 @@
 function searchFoodAPI(URL, searchTerm, searchLocation){
 	clearBox("results")
-
-
 	console.log(URL);
 	fetch(URL)
     .then(function (response) {
@@ -43,20 +41,24 @@ function updateResults(data, searchTerm, searchLocation){
 	else{
 		results.forEach(food => {
 			//console.log(food.title);
-	      	const h1 = document.createElement('h1');
-	      	food.title = food.title.substring(0, 100);
-	      	h1.textContent = food.title;
-	      	h1.setAttribute('textAlign', 'center');
-
-	      	const img = document.createElement("IMG");
-	      	img.setAttribute('src', food.image_url);
-	      	img.setAttribute('width', 300);
-	      	img.setAttribute('height', 300);
-	      	// use template literal to pass variable
-	      	img.setAttribute('onclick', `searchRecipe("${food.recipe_id}"," ${searchLocation}");`);
-	      	document.getElementById(searchLocation).appendChild(h1).appendChild(img);
+	      	formatData(food, searchLocation);
 		});
 	}
+}
+
+function formatData(food, searchLocation){
+	const h1 = document.createElement('h1');
+  	food.title = food.title.substring(0, 100);
+  	h1.textContent = food.title;
+  	h1.setAttribute('textAlign', 'center');
+
+  	const img = document.createElement("IMG");
+  	img.setAttribute('src', food.image_url);
+  	img.setAttribute('width', 300);
+  	img.setAttribute('height', 300);
+  	// use template literal to pass variable
+  	img.setAttribute('onclick', `searchRecipe("${food.recipe_id}","${searchLocation}");`);
+  	document.getElementById(searchLocation).appendChild(h1).appendChild(img);
 }
 
 
@@ -86,10 +88,14 @@ function generateMeal(data, searchLocation){
 // function which updates the search page with the selected meals information
 function updateFoodPage(data, searchLocation){
 	const recipe = data.recipe.ingredients;
+	const foodData = data.recipe;
+	formatData(foodData, searchLocation);
+	console.log(searchLocation);
+	//  add recipe
 	recipe.forEach(ingredient =>{
-		const p = document.createElement('h1');
+		const p = document.createElement('p');
 		p.textContent = ingredient;
-		document.getElementById("results").appendChild(p);
+		document.getElementById(searchLocation).appendChild(p);
 	})
 }
 
