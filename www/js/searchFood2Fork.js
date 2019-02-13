@@ -89,7 +89,7 @@ function generateMeal(data, searchLocation){
 function updateFoodPage(data, searchLocation){
 	const recipe = data.recipe.ingredients;
 	const foodData = data.recipe;
-	formatData(foodData, searchLocation);
+	formatData(foodData, searchLocation
 	console.log(searchLocation);
 	//  add recipe
 	recipe.forEach(ingredient =>{
